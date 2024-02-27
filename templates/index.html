@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>live 11m terminal:</title>
+<style>
+body {
+  background-color: black; /* Black background */
+  color: #39FF14; /* Neon green text, similar to Matrix green */
+  font-family: 'Consolas', 'Courier New', monospace; /* Monospace font for terminal-like appearance */
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#preview {
+  width: 80%;
+  height: 80%;
+  overflow: auto;
+  border: 1px solid white;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+h2 {
+  margin-top: 0;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.spinner {
+    display: inline-block;
+    animation: spin 2s linear infinite;
+    margin-right: 5px;
+}
+</style>
+</head>
+<body>
+<h2>live 11m terminal:</h2>
+<div id="preview"></div>
+</body>
+<script>
+    function fetchPreview() {
+        fetch('/get-preview')
+        .then(response => response.json())
+        .then(data=> {
+            document.getElementById('preview').innerText = data.content;
+        })
+}
+
+setTimeout(fetchPreview, 500); // Fetch every 500 milliseconds (0.5 second)
+</script>
+<body onload="fetchPreview()">
+    <h2><span class="spinner"></span>Live llm terminal</h2>
+    <div id="preview"></div>
+</body>
+</html>
